@@ -6,6 +6,15 @@
     <title>Signup</title>
 </head>
 <body>
-    <h1>Hi! Signup here</h1>
+    <h1>Enter details to signup</h1>
+    <form action="/signup" method="POST">
+        <label for="username">Username: <input type="text" name="username"></label>
+        <label for="email">E-mail: <input type="email" name="email"></label>
+        <label for="password">Password: <input type="password" name="password"></label>
+        <button>Signup</button>
+    </form>
+    <br>
+    <h1>Already SignedUp ?</h1>
+    <h3>Login <a href="/login">here></a></h3>
 </body>
 </html>
