@@ -43,19 +43,19 @@ router.get('/signout', (req, res) => {
     res.redirect('/login')
 })
 
-router.get('/home',middleware.isLoggedIn, (req, res) => {
-    // Messages.find().where()
-    connectdb('chatApp')
-        .then(db => db.collection('messages').find( { $or: [ {to : req.user[0].username}, { from: req.user[0].username } ] }            ))
-        .then(msgs => msgs.toArray())
-        .then((msgs) => {
-            console.log(msgs) 
-            res.render('home', {username: req.user[0].username, msgs: msgs})
-    })
-        .catch(err => {
-            console.log(err)
-            res.send(err)
-        })
+router.get('/home',middleware.isLoggedIn, async(req, res) => {
+    try{
+        let sentMessages= await Messages.find().where("from.id").equals(req.user._id);
+        let receivedMessages=await Messages.find().where("to.id").equals(req.user._id);
+        const messages = sentMessages.concat(receivedMessages)
+        console.log(messages)
+        res.render('home',{messages,userName:req.user.userName})
+    
+    }
+    catch(err){
+        console.log(err)
+        res.redirect("/")
+    }
 })
 
 module.exports=router;

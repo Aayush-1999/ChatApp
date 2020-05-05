@@ -13,19 +13,12 @@
                 <a class="nav-link" href="/register">Sign Up</a>
             </li>
         <% } else {%>
-                <%if(currentUser.isAdmin){ %>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/user/<%=currentUser._id%>"><%= currentUser.displayName%> (Admin)</a>
-                    </li>
-                <% } 
-                else{ %>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/user/<%=currentUser._id%>"><%= currentUser.displayName %></a>
-                    </li>
-                <% }%>
-                <li class="nav-item">
-                    <a class="nav-link" href="/logout">Logout</a>
-                </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user/<%=currentUser._id%>"><%= currentUser.userName %></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
         <%}%>
       </ul>
     </div>
