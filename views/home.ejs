@@ -1,7 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<body>
-    <h1 class="display-4 text-center">Welcome <span id="username">{{username}}</span>, lets chat !</h1>
+<% include ./partials/header %>
+
+<h1 class="display-4 text-center">Welcome <span id="username">{{username}}</span>, lets chat !</h1>
     <large class="form-text text-muted text-center">Please mention username of receiver in your text as @username</large>
     
     <hr>
@@ -23,5 +22,5 @@
         <li>{{m.from}}: {{m.message}}</li>
         {{/each}}
     </ul>
-</body>
-</html>
+
+<% include ./partials/footer %>
