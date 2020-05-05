@@ -4,9 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
 </head>
 <body>
-    <h1>Lets chat here</h1>
+    <h1>Lets chat here <span id="username">{{username}}</span></h1>
+    <h3>Please mention username of the person in your text as @username</h3>
     <a href="/signout"><button>Logout</button></a>
+    <br><br>
+    <input type="text" id="chatinput"> <button id="sendbutton">Send</button>
+    <br>
+    <ul id="msgList">
+        {{#each msgs as |m|}}
+        <li>{{m.from}}: {{m.message}}</li>
+        {{/each}}
+    </ul>
 </body>
 </html>

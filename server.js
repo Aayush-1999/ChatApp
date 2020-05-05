@@ -4,6 +4,12 @@ const session=require('express-session')
 const passport=require('./stratergies')
 const { connectdb }=require('./database/db')
 
+const http=require('http')
+const socket=require('socket.io')
+
+const server=http.createServer(svr)
+const io=socket(server)
+
 const SERVER_PORT = process.env.PORT || 3000
 
 svr.set('view engine', 'hbs')
@@ -34,7 +40,18 @@ svr.get('/', (req, res) => {
 })
 
 svr.get('/home', checkLogin, (req, res) => {
-    res.render('home')
+    connectdb('chatApp')
+        .then(db => db.collection('messages').find( { $or: [ {to : req.user[0].username}, { from: req.user[0].username } ] }            ))
+        .then(msgs => msgs.toArray())
+        .then((msgs) => {
+            console.log(msgs) 
+            res.render('home', {username: req.user[0].username, msgs: msgs})
+    })
+        .catch(err => {
+            console.log(err)
+            res.send(err)
+        })
+    // res.render('home', {username: req.user[0].username})
 })
 
 svr.post('/signup', (req, res) => {
@@ -67,6 +84,29 @@ svr.get('/signout', (req, res) => {
     res.redirect('/login')
 })
 
-svr.listen(SERVER_PORT, () => {
+//socketio implementation
+io.on('connection', (socket)=>{
+    socket.on('chatsend', (data)=>{
+        const newMsg={
+            from: data.from,
+            to: data.to,
+            message: data.msg
+        }
+        console.log(newMsg);
+        connectdb('chatApp')
+        .then(db => db.collection('messages').insertOne(newMsg))
+        .catch(err => {
+            console.log(err)
+            res.send(err)
+        })
+        io.emit('chat_display', {
+            from: data.from,
+            to: data.to,
+            message: data.msg
+        })
+    })
+})
+
+server.listen(SERVER_PORT, () => {
     console.log('started at http://localhost:3000/');
 })
