@@ -62,7 +62,7 @@ svr.post('/signup', (req, res) => {
     }
     connectdb('chatApp')
         .then(db => db.collection('users').insertOne(nuser))
-        .then(() => res.redirect('/'))
+        .then(() => res.redirect('/login'))
         .catch(err => {
             console.log(err)
             res.send(err)

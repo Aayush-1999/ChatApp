@@ -8,14 +8,26 @@
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script src="socket.io/socket.io.js"></script>
     <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Lets chat here <span id="username">{{username}}</span></h1>
-    <h3>Please mention username of the person in your text as @username</h3>
-    <a href="/signout"><button>Logout</button></a>
-    <br><br>
-    <input type="text" id="chatinput"> <button id="sendbutton">Send</button>
+    <h1 class="display-4 text-center">Welcome <span id="username">{{username}}</span>, lets chat !</h1>
+    <large class="form-text text-muted text-center">Please mention username of receiver in your text as @username</large>
+    
+    <hr>
+
+    <div class="text-center container">
+        <div class="input-group">
+        <input type="text" id="chatinput" class="form-control" placeholder="Type a message" aria-label="Recipient's username with two button addons" aria-describedby="button-addon4">
+        <div class="input-group-append" id="button-addon4">
+            <button id="sendbutton" class="btn btn-success" type="button">Send</button>
+            <a href="/signout"><button class="btn btn-danger" type="button">Logout</button></a>
+        </div>
+        </div>
+    </div>
+    
     <br>
+    
     <ul id="msgList">
         {{#each msgs as |m|}}
         <li>{{m.from}}: {{m.message}}</li>
