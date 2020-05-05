@@ -4,13 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
     <h1>Enter details to signup</h1>
     <form action="/signup" method="POST">
-        <label for="username">Username: <input type="text" name="username"></label>
-        <label for="email">E-mail: <input type="email" name="email"></label>
-        <label for="password">Password: <input type="password" name="password"></label>
+        <div class="form-group">
+            <label for="username">Username: </label>
+            <input type="text" name="username">
+        </div>
+        <div class="form-group">
+            <label for="email">E-mail: </label>
+            <input type="email" name="email">
+        </div>
+        <div class="form-group">
+            <label for="password">Password: </label>
+            <input type="password" name="password">
+        </div>
         <button>Signup</button>
     </form>
     <br>

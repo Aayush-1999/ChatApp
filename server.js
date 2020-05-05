@@ -2,10 +2,9 @@ const express=require('express')
 const svr=express()
 const session=require('express-session')
 const passport=require('./stratergies')
-const { connectdb }=require('./database/db')
-
 const http=require('http')
 const socket=require('socket.io')
+const { connectdb }=require('./database/db')
 
 const server=http.createServer(svr)
 const io=socket(server)
@@ -26,6 +25,7 @@ svr.use(session({
 svr.use(passport.initialize())
 svr.use(passport.session())
 
+//middleware function to check if user is logged in
 function checkLogin(req, res, next) {
     if(req.user) {
         return next()
@@ -51,7 +51,6 @@ svr.get('/home', checkLogin, (req, res) => {
             console.log(err)
             res.send(err)
         })
-    // res.render('home', {username: req.user[0].username})
 })
 
 svr.post('/signup', (req, res) => {
@@ -84,7 +83,7 @@ svr.get('/signout', (req, res) => {
     res.redirect('/login')
 })
 
-//socketio implementation
+//socketio implementation for realtime chat
 io.on('connection', (socket)=>{
     socket.on('chatsend', (data)=>{
         const newMsg={
